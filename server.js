@@ -17,9 +17,9 @@ const posts = [
 app.get("/api/posts", (req, res) => {
   const limit = parseInt(req.query.limit);
   if (!isNaN(limit) && limit > 0) {
-    res.json(posts.slice(0, limit));
+    res.status(200).json(posts.slice(0, limit));
   } else {
-    res.json(posts);
+    res.status(200).json(posts);
   }
 });
 
@@ -28,10 +28,9 @@ app.get("/api/posts/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const post = posts.find((post) => post.id === id);
   if (post) {
-    res.json(post);
+    res.status(200).json(post);
   } else {
-    res.statusCode = 404;
-    res.json({ message: "post not found" });
+    res.status(404).json({ message: "post not found" });
   }
 });
 
