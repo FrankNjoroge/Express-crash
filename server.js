@@ -5,7 +5,7 @@ const port = process.env.PORT || 8000;
 const app = express();
 
 //setup static folder
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
 const posts = [
   { id: 1, title: "post one" },
@@ -15,7 +15,12 @@ const posts = [
 
 // Get all posts
 app.get("/api/posts", (req, res) => {
-  res.json(posts);
+  const limit = parseInt(req.query.limit);
+  if (!isNaN(limit) && limit > 0) {
+    res.json(posts.slice(0, limit));
+  } else {
+    res.json(posts);
+  }
 });
 
 // Get single post
