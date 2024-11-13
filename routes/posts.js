@@ -6,6 +6,9 @@ let posts = [
   { id: 2, title: "post two" },
   { id: 3, title: "post three" },
 ];
+router.get("/check-headers", (req, res) => {
+  res.json(req.headers);
+});
 
 // Get all posts
 router.get("/", (req, res) => {
@@ -52,6 +55,20 @@ router.put("/:id", (req, res) => {
       .json({ message: `A post with id ${id} was not found` });
   }
   post.title = req.body.title;
+  res.status(200).json(posts);
+});
+
+//delete post
+router.delete("/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const post = posts.find((post) => post.id === id);
+  if (!post) {
+    return res
+      .status(404)
+      .json({ message: `A post with id ${id} was not found` });
+  }
+
+  posts = posts.filter((post) => post.id !== id);
   res.status(200).json(posts);
 });
 
