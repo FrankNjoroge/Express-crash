@@ -6,9 +6,6 @@ let posts = [
   { id: 2, title: "post two" },
   { id: 3, title: "post three" },
 ];
-router.get("/check-headers", (req, res) => {
-  res.json(req.headers);
-});
 
 // Get all posts
 router.get("/", (req, res) => {
