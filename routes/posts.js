@@ -29,13 +29,15 @@ router.get("/:id", (req, res, next) => {
 });
 
 //Add post
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
   const newPost = {
     id: posts.length + 1,
     title: req.body.title,
   };
   if (!newPost.title) {
-    return res.status(400).json({ msg: "Please include a title" });
+    const error = new Error(`Please include a title`);
+    error.status = 404;
+    return next(error);
   }
   posts.push(newPost);
 
