@@ -58,13 +58,13 @@ router.put("/:id", (req, res, next) => {
 });
 
 //delete post
-router.delete("/:id", (req, res) => {
+router.delete("/:id", (req, res, next) => {
   const id = parseInt(req.params.id);
   const post = posts.find((post) => post.id === id);
   if (!post) {
-    return res
-      .status(404)
-      .json({ message: `A post with id ${id} was not found` });
+    const error = new Error(`A post with id ${id} was not found`);
+    error.status = 404;
+    return next(error);
   }
 
   posts = posts.filter((post) => post.id !== id);
