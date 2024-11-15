@@ -17,13 +17,13 @@ router.get("/", (req, res) => {
 });
 
 // Get single post
-router.get("/:id", (req, res) => {
+router.get("/:id", (req, res, next) => {
   const id = parseInt(req.params.id);
   const post = posts.find((post) => post.id === id);
   if (!post) {
-    return res
-      .status(404)
-      .json({ message: `A post with id ${id} was not found` });
+    const error = new Error(`A post with id ${id} was not found`);
+    error.status = 404;
+    return next(error);
   }
   res.status(200).json(post);
 });
