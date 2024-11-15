@@ -36,7 +36,7 @@ router.post("/", (req, res, next) => {
   };
   if (!newPost.title) {
     const error = new Error(`Please include a title`);
-    error.status = 404;
+    error.status = 400;
     return next(error);
   }
   posts.push(newPost);
