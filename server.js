@@ -4,6 +4,7 @@ import posts from "./routes/posts.js";
 import logger from "./middleware/logger.js";
 import errorHandler from "./middleware/error.js";
 import notFound from "./middleware/NotFound.js";
+import url from "url";
 
 const port = process.env.PORT || 8000;
 
@@ -17,7 +18,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(logger);
 
 //setup static folder
-// app.use(express.static(path.join(__dirname, "public")));
+const __dirname = import.meta.dirname;
+
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/posts", posts);
 
