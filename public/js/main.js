@@ -29,6 +29,10 @@ async function addPost(e) {
   e.preventDefault();
   const formData = new FormData(this);
   const title = formData.get("title");
+  if (!title.trim()) {
+    console.log("Title is required!");
+    return;
+  }
   try {
     const res = await fetch("http://localhost:8000/api/posts", {
       method: "POST",
