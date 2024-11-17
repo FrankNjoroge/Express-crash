@@ -44,10 +44,8 @@ async function addPost(e) {
     if (!res.ok) {
       throw new Error("Failed to add post");
     }
-    const newPost = await res.json();
-    const postEl = document.createElement("div");
-    postEl.textContent = newPost.title;
-    output.appendChild(postEl);
+    const posts = await res.json();
+    showPosts(posts);
   } catch (error) {
     console.error("Error adding post");
   }
